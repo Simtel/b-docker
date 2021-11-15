@@ -1,0 +1,6 @@
+.env
+.php-cs-fixer.cache
+.idea
+.vscode
+/www
+!/www/.gitkeep

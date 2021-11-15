@@ -1,0 +1,111 @@
+version: '3.8'
+services:
+
+  nginx:
+    image: nginx
+    container_name: nginx
+   # restart: always
+    volumes:
+     - ./www:/var/www/html
+     - ./conf/nginx/nginx.conf:/etc/nginx/nginx.conf
+     - ./conf/nginx/site.conf:/etc/nginx/site.conf
+    depends_on:
+      - php
+    ports:
+     - "${NGINX_PORT}:80"
+    environment:
+     - NGINX_HOST=${NGINX_HOST}
+     - NGINX_PORT=${NGINX_PORT}
+    networks:
+      local-network:
+        ipv4_address: 172.10.0.2
+    
+  php:
+    build: ./images/php-${PHP_VERSION}
+    container_name: php
+    extra_hosts:
+      - "${NGINX_HOST}:172.10.0.2"
+    volumes:
+      - ./www:/var/www/html
+      - ./bash_history/php/.bash_history:/home/www-data/.bash_history
+    environment:
+      TZ: 'Europe/Moscow'
+    depends_on:
+      - memcached
+      - mailhog
+    networks:
+      local-network:
+        ipv4_address: 172.10.0.3
+   
+  mysql:
+    build: ./images/mysql-${MYSQL_VERSION}
+    container_name: mysql
+   # restart: always
+    ports:
+      - "${MYSQL_PORT}:3306"
+    volumes:
+      - volume-mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      TZ: 'Europe/Moscow'
+    networks:
+      local-network:
+        ipv4_address: 172.10.0.4
+    
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    # restart: always
+    depends_on:
+      - mysql
+    ports:
+      - 8181:80
+    environment:
+      PMA_HOST: mysql
+      MYSQL_USERNAME: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    networks:
+      local-network:
+        ipv4_address: 172.10.0.5
+      
+  memcached:
+    image: memcached:latest
+    container_name: memcached
+    ports:
+      - "11211:11211"
+    networks:
+      local-network:
+        ipv4_address: 172.10.0.6
+      
+  mailhog:
+    image: mailhog/mailhog
+    container_name: mailhog
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+    networks:
+      local-network:
+        ipv4_address: 172.10.0.7
+
+volumes:
+  volume-mysql:
+  volume-www:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: ${APP_CODE_PATH_HOST}
+      
+networks:
+  local-network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+         - subnet: 172.10.0.0/16
+    
+  
+
