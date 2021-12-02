@@ -2,5 +2,5 @@
 .php-cs-fixer.cache
 .idea
 .vscode
-/www
+/www/*
 !/www/.gitkeep

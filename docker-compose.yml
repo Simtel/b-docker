@@ -4,7 +4,7 @@ services:
   nginx:
     image: nginx
     container_name: nginx
-   # restart: always
+   # restart: unless-stopped
     volumes:
      - ./www:/var/www/html
      - ./conf/nginx/nginx.conf:/etc/nginx/nginx.conf
@@ -40,7 +40,7 @@ services:
   mysql:
     build: ./images/mysql-${MYSQL_VERSION}
     container_name: mysql
-   # restart: always
+   # restart: unless-stopped
     ports:
       - "${MYSQL_PORT}:3306"
     volumes:
@@ -58,7 +58,7 @@ services:
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     container_name: phpmyadmin
-    # restart: always
+    # restart: unless-stopped
     depends_on:
       - mysql
     ports:
