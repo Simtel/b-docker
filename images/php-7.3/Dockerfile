@@ -31,7 +31,7 @@ RUN apt-get update && apt-get install -y \
         && pecl install memcache-4.0.5.2 && docker-php-ext-enable memcache \
         && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-RUN docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg --with-webp; \
+RUN docker-php-ext-configure gd --with-gd --with-freetype-dir --with-jpeg-dir  --with-png-dir --with-webp-dir; \
     docker-php-ext-install -j$(nproc) gd
 
 # Настройки почтовика

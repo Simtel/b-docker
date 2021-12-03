@@ -45,10 +45,10 @@ dc-up: ## Создаем(если нет) образы и контейнеры, 
 dc-stop: ## Останавливает контейнеры.
 	docker-compose stop
 
-dс-down: ##Останавливает, удаляет контейнеры. docker-compose down --remove-orphans
+dc-down: ##Останавливает, удаляет контейнеры. docker-compose down --remove-orphans
 	docker-compose down --remove-orphans
 
-dс-down-clear: ##Останавливает, удаляет контейнеры и образы. docker-compose down -v --remove-orphans
+dc-down-clear: ##Останавливает, удаляет контейнеры и образы. docker-compose down -v --remove-orphans
 	docker-compose down -v --remove-orphans
 
 dc-console-db: ##Зайти в консоль mysql
