@@ -7,6 +7,11 @@ nginx + php-fpm + mysql + memcached
 Есть **phpmyadmin** для просмотра БД. http://localhost:8181/
 Есть **mailhog** для просмотра почты. http://localhost:8025/
 
+## Поддерживаются в любом сочетании:
+
+PHP: 7.3, 7.4
+MySql: 5.7, 8
+
 ## Установка
 
 Клонируем проект
@@ -65,6 +70,4 @@ return [
 Подробней в https://dev.1c-bitrix.ru/learning/course/index.php?COURSE_ID=43&LESSON_ID=14026&LESSON_PATH=3913.3435.4816.14028.14026
 
 ## TODO List
-[ ] Сборка с PHP 7.3
-[ ] Сборка с PHP 8.0
-[ ] Сборка с MySql 5.7
+Сборка с PHP 8.0
