@@ -9,7 +9,7 @@ nginx + php-fpm + mysql + memcached
 
 ## Поддерживаются в любом сочетании:
 
-**PHP:** 7.3, 7.4
+**PHP:** 7.2, 7.3, 7.4
 
 **MySql:** 5.7, 8
 
@@ -37,18 +37,20 @@ nginx + php-fpm + mysql + memcached
 `make setupclear` ---   Подразумевается использование: под каждый проект - свой git.
 
 ## Структура проекта
--- **bash_history** - папка для хранения истории bash контейнеров
--- **conf** - конфиги. ngnix и пр.
--- **dumps** - папка для дампов БД
--- **images** - папка с docker образами
--- **initdata** - папка с служебными файлами
--- **www** - root дериктория проекта
--- .env-exeplame - пример файла `.env`
--- .gitignore - список игнора
--- Makefile - команды make. Список команд make можно посмотреть так: `make` или `make help`
--- docker-compose.yml - конфиг контейнеров
--- readmy.md - этот файл
-
+```bash
+-- docker
+    -- bash_history # папка для хранения истории bash контейнеров
+    -- conf # конфиги. ngnix и пр.
+    -- dumps # папка для дампов БД
+    -- images # папка с docker образами
+    -- initdata # папка с служебными файлами
+    -- www # root дериктория проекта
+-- .env-exeplame # пример файла `.env`
+-- .gitignore # список игнора
+-- Makefile # команды make. Список команд make можно посмотреть так: `make` или `make help`
+-- docker-compose.yml # конфиг контейнеров
+-- readmy.md # этот файл
+```
 ## memcached
 Пример хранения данных сессии в **memcached**, настройки файла `bitrix/.settings.php`
 ````php

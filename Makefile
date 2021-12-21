@@ -15,9 +15,9 @@ help: ##Show this help.
 
 copyinitdata: ## Копирует файлы по директориям из initdata
 	cp .env-exeplame .env
-	cp -r ./initdata/bash_history/* ./bash_history/
-	cp ./initdata/bitrixsetup.php ./www/bitrixsetup.php
-	cp ./initdata/restore.php ./www/restore.php
+	cp -r ./docker/initdata/bash_history/* ./bash_history/
+	cp ./docker/initdata/bitrixsetup.php ./www/bitrixsetup.php
+	cp ./docker/initdata/restore.php ./www/restore.php
 	
 setupclear: ## Очищаем мусор после установки битрикса
 	@$(MAKE) rmgit
@@ -66,12 +66,12 @@ dc-console-php-root: ##php консоль под root
 ##╚                     ╝
 
 db-dump: ## Сделать дамп БД
-	docker exec mysql mysqldump -u $(MYSQL_USER) --password=$(MYSQL_PASSWORD) $(MYSQL_DATABASE) --no-tablespaces | gzip > ./dump.sql.gz
-	@if [ -f ./dump.sql.gz ]; then \
-		mv  ./dump.sql.gz ./dumps/$(shell date +%Y-%m-%d_%H%M%S)_dump.sql.gz; \
+	docker exec mysql mysqldump -u $(MYSQL_USER) --password=$(MYSQL_PASSWORD) $(MYSQL_DATABASE) --no-tablespaces | gzip > ./docker/dump.sql.gz
+	@if [ -f ./docker/dump.sql.gz ]; then \
+		mv  ./docker/dump.sql.gz ./docker/dumps/$(shell date +%Y-%m-%d_%H%M%S)_dump.sql.gz; \
 	fi
 
-db-restore: ## Восстановить данные в БД. Параметр path - путь до дампа. Пример: make db-restore path=./dumps/2021-11-12_185741_dump.sql.gz
+db-restore: ## Восстановить данные в БД. Параметр path - путь до дампа. Пример: make db-restore path=./docker/dumps/2021-11-12_185741_dump.sql.gz
 	gunzip < $(path) | docker exec -i mysql mysql -u $(MYSQL_USER) --password=$(MYSQL_PASSWORD) $(MYSQL_DATABASE)
 
 
