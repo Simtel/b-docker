@@ -1,8 +1,8 @@
 # Default website
 server {
 
-    listen       80;
-    server_name  localhost;
+    listen       ${NGINX_PORT};
+    server_name  ${NGINX_HOST};
     index index.php index.html;
     root /var/www/html;
 
