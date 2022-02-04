@@ -23,22 +23,23 @@ nginx + php-fpm + mysql + memcached
 
 Запускаем команду копирования служебных файлов
 
-> `make copyinitdata`
+`make copyinitdata`
 
 Настраиваем окружение в файле `.env`.
 
 `NGINX_HOST` должен совпадать с настройками Главного модуля, "URL сайта (без http://, например www.mysite.com)". При запуске одновременно нескольких проектов, порты на контейнеры должны отличаться.
 
 Запускаем docker
-> `make dc-up`
+`make dc-up`
 
 Рекомендуется всегда пользоваться командами `make dc-up` и `make dc-down` для запуска и остановки проекта в docker.
 В `make dc-up` происходит установка домена и ip nginx в файл `.hosts` контейнера php.
 
 Устанавливаем битрикс:
-> `http://localhost/bitrixsetup.php` - если проект новый.
 
-> `http://localhost/restore.php` - если восстанавливаем из бекапа битрикса.
+`http://localhost/bitrixsetup.php` - если проект новый.
+
+`http://localhost/restore.php` - если восстанавливаем из бекапа битрикса.
 
 Удаляем git и мусор, после установки 1C-Битрикс:
 
